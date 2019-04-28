@@ -30,7 +30,7 @@ function checkWords(result, input) {
     for (var i = 0; i < inputArray.length; i++) {
         var filteredWord = inputArray[i].replace(/[^A-Za-z]/g, "");
 
-        if (filteredWord.toLowerCase()) {
+        if (filteredWord.toLowerCase() === "maddie") {
             stringOutput += "---SystemMeltdown---"; 
         }else if (dictionaryObj[filteredWord] || dictionaryObj[filteredWord.toLowerCase()]) {
             stringOutput += (inputArray[i] + " ");
