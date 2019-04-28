@@ -1,7 +1,8 @@
 //on submission of the text this is called
 $(document).ready(function() {
     //url for the dictionary route
-    const url = `https://tomblais1224-tblais1224.c9users.io/data`;
+    const url = "https://tb-spellchecker.herokuapp.com/data";
+    // `https://tomblais1224-tblais1224.c9users.io/data`
     $("#submit").click(function() {
         $("#checkedPar").remove();
         //sets user input to input
@@ -28,6 +29,7 @@ function checkWords(result, input) {
     // word.replace(/[^A-Za-z]/g, "")
     for (var i = 0; i < inputArray.length; i++) {
         var filteredWord = inputArray[i].replace(/[^A-Za-z]/g, "");
+
         if (dictionaryObj[filteredWord] || dictionaryObj[filteredWord.toLowerCase()]) {
             stringOutput += (inputArray[i] + " ");
         }

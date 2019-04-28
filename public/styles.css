@@ -5,11 +5,19 @@ body{
     background: skyblue;
 }
 
+
 #spellcheck-container{
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin:15px;
+}
+
+#submit{
+    margin: 15px;
+    width: 100px;
+    height: 25px;
+    
 }
 
 #incorrect{
