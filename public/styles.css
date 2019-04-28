@@ -1,0 +1,18 @@
+body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: skyblue;
+}
+
+#spellcheck-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin:15px;
+}
+
+#incorrect{
+    background-color: hsl(0,100%,50%);
+    
+}
