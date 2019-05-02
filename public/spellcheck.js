@@ -2,7 +2,7 @@
 $(document).ready(function() {
     $('#submit').on('click', function() {
         var userInput = document.getElementById("user-input").value;
-        $.post("/checked", { input: userInput }, function(result){
+        $.post("/", { input: userInput }, function(result){
             console.log(result)
             $("#checkedPar").remove();
             $("#checked").append("<p id='checkedPar'>" + result.string + "</p>")

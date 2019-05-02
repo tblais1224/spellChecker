@@ -5,12 +5,14 @@ const bodyParser = require('body-parser');
 const dictionaryData = require("./data");
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static('public'));
+
 app.get("/", function(req, res) {
   res.sendfile('index.html');
 });
 
-app.post("/checked", function(req, res) {
+app.post("/", function(req, res) {
   var inputArray = req.body.input.split(" ");
   var stringOutput = "";
   for (var i = 0; i < inputArray.length; i++) {
