@@ -11,6 +11,6 @@ $(document).ready(function() {
             $("#checkedPar").remove();
             //appends the result data to the checked div
             $("#checked").append("<p id='checkedPar'>" + result.string + "</p>")
-        })
-    })
+        });
+    });
 });
