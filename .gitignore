@@ -1,1 +1,1 @@
-node_modules
+node_modules, data, data.json, new_data.json, mongod
