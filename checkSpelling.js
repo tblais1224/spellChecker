@@ -1,47 +1,39 @@
 const mongoose = require('mongoose');
 
-let dictionaryData;
 
-mongoose.connect('mongodb://' + process.env.IP + '/dictionary', { useNewUrlParser: true });
-var connection = mongoose.connection;
-connection.on('error', console.error.bind(console, 'connection error:'));
-connection.once('open', function() {
-    connection.db.collection("newdictionary", function(err, collection) {
-        if (err) { throw err }
-        dictionaryData = collection;
-    });
-});
-
-function spellCheckBackend(inputString) {
-    var stringOutput = "";
+function spellCheckBackend(inputString, dictionaryData) {
     var inputArray = inputString.input.split(" ");
-    for (var i = 0; i < inputArray.length; i++) {
-        var newWord = inputArray[i];
-        let filteredWord = inputArray[i].replace(/[^A-Za-z]/g, "");
-        // let lowerCaseWord = filteredWord.toLowerCase();
-        dictionaryData.findOne({ word: filteredWord }).then(function(data) {
-            stringOutput += outputChecked(newWord, data);
-            console.log(stringOutput);
-            if (i === (inputArray.length - 1)) {
-                let api = {
-                    string: stringOutput
-                };
-                console.log(api);
-                return api;
-            }
-        });
-    }
+    var dbResults = [];
+    inputArray.forEach(word => {
+        var filteredWord = word.replace(/[^A-Za-z]/g, "").toLowerCase();
+        dbResults.push(dictionaryData.findOne({ "word": filteredWord }));
+    });
+    return Promise.all(dbResults);
 }
 
-function outputChecked(word, data) {
-    if (data === null) {
-        var stringNull = ('<span id="incorrect">' + word + ' </span>');
-        return (stringNull);
-    }
-    else {
-        var string = (word + " ");
-        return (string);
-    }
+function outputSpellCheck(dbResults, inputString) {
+    var api = {
+        string: String
+    };
+    var i = 0;
+    var inputArray = inputString.input.split(" ");
+    var stringOutput = "";
+    
+    dbResults.forEach(checkedWord => {
+        if (checkedWord === null) {
+            stringOutput += ('<span id="incorrect">' + inputArray[i] + ' </span>');
+            i++;
+        }
+        else {
+            stringOutput += (inputArray[i] + " ");
+            i++;
+        }
+    });
+    api = { string: stringOutput };
+    return api;
 }
 
-module.exports = spellCheckBackend;
+module.exports = {
+    method: spellCheckBackend,
+    otherMethod: outputSpellCheck
+};
