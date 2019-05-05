@@ -1,5 +1,5 @@
-node_modules
-data
-data.json
-new_data.json
-mongod
+./node_modules
+./data
+./data.json
+./new_data.json
+./mongod
